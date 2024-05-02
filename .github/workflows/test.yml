@@ -9,4 +9,4 @@ jobs:
       - name: test
         run: echo $VAR
         env:
-          VAR: $(echo $GITHUB_REF | rev | cut -f1 -d\/ | rev)
+          VAR: ${{ echo $GITHUB_REF | rev | cut -f1 -d\/ | rev }}
