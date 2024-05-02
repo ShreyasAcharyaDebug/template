@@ -1,0 +1,12 @@
+name: Testing
+
+on: [workflow_dispatch]
+
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: test
+        run: echo $VAR
+        env:
+          VAR: $(echo $GITHUB_REF | rev | cut -f1 -d\/ | rev)
