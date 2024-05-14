@@ -8,7 +8,7 @@ jobs:
     outputs:
       OUTPUT: ${{ env.OUTPUT }}
     steps:
-      - run: actions/checkout@v4
+      - uses: actions/checkout@v4
       - run: |
           echo "OUTPUT=$(python3 main.py)" >> $GITHUB_ENV
   JOB2:
