@@ -1,6 +1,6 @@
 name: Testing
 
-on: workflow_dispatch
+on: [workflow_dispatch, push]
 
 jobs:
   JOB1:
@@ -16,9 +16,10 @@ jobs:
     needs: JOB1
     strategy:
       matrix:
-        FIRST: ${{ fromJson(needs.JOB1.outputs.OUTPUT.first) }}
-        SECOND: ${{ fromJson(needs.JOB1.outputs.OUTPUT.second) }}
+        KEY: ${{ fromJson(needs.JOB1.outputs.OUTPUT) }}
 
     steps:
-      - run: echo ${{ matrix.FIRST }}
-      - run: echo ${{ matrix.SECOND }}
+      - uses: actions/checkout@v4
+      - run: python3 test.py
+        env:
+          KEY: ${{ matrix.KEY }}
