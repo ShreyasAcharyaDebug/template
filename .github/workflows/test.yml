@@ -16,6 +16,9 @@ jobs:
     needs: JOB1
     strategy:
       matrix:
-        KEY: ${{ fromJson(needs.JOB1.outputs.OUTPUT) }}
+        FIRST: ${{ fromJson(needs.JOB1.outputs.OUTPUT.first) }}
+        SECOND: ${{ fromJson(needs.JOB1.outputs.OUTPUT.second) }}
+
     steps:
-      - run: echo ${{ matrix.KEY }}
+      - run: echo ${{ matrix.FIRST }}
+      - run: echo ${{ matrix.SECOND }}
