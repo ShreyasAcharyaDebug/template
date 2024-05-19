@@ -1,4 +1,5 @@
 import os
+import json
 
 
-print(os.environ["KEY"])
+print(json.loads(os.environ["KEY"]))
