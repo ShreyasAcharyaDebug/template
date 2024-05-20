@@ -20,4 +20,4 @@ jobs:
       - run: docker build -t job2 -f Dockerfile_2 .
       - run: docker run --rm --env-file <(env) job2
         env:
-          KEY: ${{ toJson(fromJson(needs.JOB1.outputs.OUTPUT)) }}
+          KEY: ${{ needs.JOB1.outputs.OUTPUT }}
