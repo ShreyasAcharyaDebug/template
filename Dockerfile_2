@@ -1,0 +1,4 @@
+FROM python:3.11-bullseye
+WORKDIR /app
+COPY test.py .
+ENTRYPOINT ["python3", "test.py"]
