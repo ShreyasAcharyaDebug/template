@@ -16,11 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: JOB1
     steps:
-      - uses: actions/checkout@v4
-      - run: docker build -t job2 -f Dockerfile_2 .
-      - run: docker run --rm --env-file <(env) job2
-        env:
+      - run: |
+          VAR=$(echo $KEY | jq -r 'to_entries[] | select(.first==1) | .second)')
+          echo $VAR
+        env: 
           KEY: ${{ needs.JOB1.outputs.OUTPUT }}
-      - run: echo $KEY
-        env:
-          KEY: ${{ fromJson(needs.JOB1.outputs.OUTPUT) }}
