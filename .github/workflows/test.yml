@@ -17,7 +17,7 @@ jobs:
     needs: JOB1
     strategy:
       matrix: 
-       KEY: ${{ fromJson(needs.JOB1.outputs.OUTPUT }}
+       KEY: ${{ fromJson(needs.JOB1.outputs.OUTPUT) }}
     steps:
       - run: |
           VAR=$(echo $KEY | jq -r 'select(.first==1)')
