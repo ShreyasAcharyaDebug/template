@@ -17,7 +17,7 @@ jobs:
     needs: JOB1
     steps:
       - run: |
-          VAR=$(echo $KEY | jq -r 'to_entries[] | select(.first==1) | .second)')
+          VAR=$(echo $KEY | jq -r 'select(.first==1)')
           echo $VAR
         env: 
           KEY: ${{ needs.JOB1.outputs.OUTPUT }}
