@@ -15,9 +15,12 @@ jobs:
   JOB2:
     runs-on: ubuntu-latest
     needs: JOB1
+    strategy:
+      matrix: 
+       KEY: ${{ fromJson(needs.JOB1.outputs.OUTPUT }}
     steps:
       - run: |
           VAR=$(echo $KEY | jq -r 'select(.first==1)')
           echo $VAR
         env: 
-          KEY: ${{ needs.JOB1.outputs.OUTPUT }}
+          KEY: ${{ matrix.KEY }}
