@@ -13,7 +13,7 @@ jobs:
         run: echo "File from job1" > job1_file.txt
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: shared-artifact
           path: job1_file.txt
@@ -26,7 +26,7 @@ jobs:
         job: [one, two, three]
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: shared-artifact
           path: .
@@ -35,7 +35,7 @@ jobs:
         run: echo "File from job2-${{ matrix.job }}" > job2_${{ matrix.job }}.txt
 
       - name: Upload artifact with new file
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: shared-artifact
           path: |
@@ -45,7 +45,7 @@ jobs:
     needs: job2
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: shared-artifact
           path: .
