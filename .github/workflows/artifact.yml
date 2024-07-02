@@ -1,54 +1,82 @@
-name: Multiple Jobs Contributing to Artifact
+# name: Multiple Jobs Contributing to Artifact
+
+# on: [push]
+
+# jobs:
+#   job1:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+
+#       - name: Create a file
+#         run: echo "File from job1" > job1_file.txt
+
+#       - name: Upload artifact
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: shared-artifact
+#           path: job1_file.txt
+
+#   job2:
+#     runs-on: ubuntu-latest
+#     needs: job1
+#     strategy:
+#       matrix:
+#         job: [one, two, three]
+#     steps:
+#       - name: Download artifact
+#         uses: actions/download-artifact@v2
+#         with:
+#           name: shared-artifact
+#           path: .
+
+#       - name: Add a file
+#         run: echo "File from job2-${{ matrix.job }}" > job2_${{ matrix.job }}.txt
+
+#       - name: Upload artifact with new file
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: shared-artifact
+#           path: |
+#             job2_${{ matrix.job }}.txt
+#   final_job:
+#     runs-on: ubuntu-latest
+#     needs: job2
+#     steps:
+#       - name: Download artifact
+#         uses: actions/download-artifact@v2
+#         with:
+#           name: shared-artifact
+#           path: .
+
+#       - name: List files
+#         run: ls -la
+
+
+name: Test
 
 on: [push]
 
 jobs:
-  job1:
-    runs-on: ubuntu-latest
+  JOB1:
+    runs-on: [ubuntu-latest]
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - run: mkdir test
+    - run: |
+        echo "file1" > test/file1.txt
+        echo "file2" > text/file2.txt
+    - uses: actions/upload-artifact@v4
+      with:
+        name: artifact
+        path: test
 
-      - name: Create a file
-        run: echo "File from job1" > job1_file.txt
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: shared-artifact
-          path: job1_file.txt
-
-  job2:
-    runs-on: ubuntu-latest
-    needs: job1
-    strategy:
-      matrix:
-        job: [one, two, three]
+  JOB2:
+    runs-on: [ubuntu-latest]
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: shared-artifact
-          path: .
-
-      - name: Add a file
-        run: echo "File from job2-${{ matrix.job }}" > job2_${{ matrix.job }}.txt
-
-      - name: Upload artifact with new file
-        uses: actions/upload-artifact@v2
-        with:
-          name: shared-artifact
-          path: |
-            job2_${{ matrix.job }}.txt
-  final_job:
-    runs-on: ubuntu-latest
-    needs: job2
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: shared-artifact
-          path: .
-
-      - name: List files
-        run: ls -la
+    - run: mkdir test
+    - uses: actions/download@v4
+      with:
+        name: artifact
+        path: test/file2.txt
+    - run: ls test
