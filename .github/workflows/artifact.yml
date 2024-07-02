@@ -41,6 +41,7 @@ jobs:
           path: |
             /job1_file.txt
             job2_${{ matrix.job }}.txt
+          if-no-files-found: error
 
   final_job:
     runs-on: ubuntu-latest
