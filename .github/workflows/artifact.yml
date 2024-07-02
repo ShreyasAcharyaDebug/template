@@ -1,25 +1,56 @@
-name: Artifact
+name: Multiple Jobs Contributing to Artifact
 
-on: [push, workflow_dispatch]
+on: [push]
 
 jobs:
-  FileCreation:
+  job1:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - run: python3 artifact.py
-    - uses: actions/upload-artifact@v4
-      with:
-        name: OUTPUT
-        path: /tmp/output
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-  DownloadFile:
+      - name: Create a file
+        run: echo "File from job1" > job1_file.txt
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: shared-artifact
+          path: job1_file.txt
+
+  job2:
     runs-on: ubuntu-latest
-    needs:  [FileCreation]
+    needs: job1
+    strategy:
+      matrix:
+        job: [one, two, three]
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/download-artifact@v4
-      with:
-        name: OUTPUT
-        path: output/
-    - run: cat output/file3.txt
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: shared-artifact
+          path: .
+
+      - name: Add a file
+        run: echo "File from job2-${{ matrix.job }}" > job2_${{ matrix.job }}.txt
+
+      - name: Upload artifact with new file
+        uses: actions/upload-artifact@v2
+        with:
+          name: shared-artifact
+          path: |
+            job1_file.txt
+            job2_${{ matrix.job }}.txt
+
+  final_job:
+    runs-on: ubuntu-latest
+    needs: job2
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: shared-artifact
+          path: .
+
+      - name: List files
+        run: ls -la
