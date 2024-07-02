@@ -1,0 +1,23 @@
+name: Artifact
+
+on: [push, workflow_dispatch]
+
+jobs:
+  FileCreation:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - run: python3 artifact.py
+    - uses: actions/upload-artifact@v4
+      with:
+        name: OUTPUT
+        path: /tmp/output
+
+  DownloadFile:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/download-artifact@v4
+      with:
+        name: OUTPUT
+    - run: echo /tmp/output/file3.txt
