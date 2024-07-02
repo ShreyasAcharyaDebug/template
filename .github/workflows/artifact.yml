@@ -80,4 +80,4 @@ jobs:
       with:
         name: artifact
         path: test/file2.txt
-    - run: ls test
+    - run: ls -R test
