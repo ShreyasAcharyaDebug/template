@@ -39,7 +39,7 @@ jobs:
         with:
           name: shared-artifact
           path: |
-            job1_file.txt
+            /job1_file.txt
             job2_${{ matrix.job }}.txt
 
   final_job:
