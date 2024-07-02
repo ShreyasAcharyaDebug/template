@@ -1,4 +1,4 @@
-s# name: Multiple Jobs Contributing to Artifact
+# name: Multiple Jobs Contributing to Artifact
 
 # on: [push]
 
