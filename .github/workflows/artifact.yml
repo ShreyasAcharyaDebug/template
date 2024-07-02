@@ -76,7 +76,7 @@ jobs:
     runs-on: [ubuntu-latest]
     steps:
     - run: mkdir test
-    - uses: actions/download@v4
+    - uses: actions/download-artifact@v4
       with:
         name: artifact
         path: test/file2.txt
