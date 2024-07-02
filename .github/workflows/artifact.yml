@@ -6,17 +6,16 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
       - name: Create a file
         run: |
           mkdir artifacts
           echo "File from job1" > artifacts/job1_file.txt
 
+      - run: echo "PATH=$GITHUB_WORKSPACE/artifacts/job1_file.txt" >> $GITHUB_ENV
+
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: shared-artifact
-          path: $GITHUB_WORKSPACE/artifacts/job1_file.txt
+          path: ${{ env.PATH }}
           if-no-files-found: error
