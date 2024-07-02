@@ -21,4 +21,4 @@ jobs:
     - uses: actions/download-artifact@v4
       with:
         name: OUTPUT
-    - run: cat /tmp/output/file3.txt
+    - run: ls
