@@ -9,11 +9,7 @@ jobs:
       OUTPUT: ${{ env.LIST }}
     steps:
       - run: |
-          GenerateList() {
-            result=$(for ((i=0; i<n; i++)); do echo -n "$i"; if ((i<n-1)); then echo -n ", "; fi; done; echo);
-            return $result
-          }
-          
+          GenerateList() { result=$(for ((i=0; i<$1; i++)); do echo -n "$i"; if ((i<$1-1)); then echo -n ", "; fi; done; echo); return $result;}
           LIST=$(GenerateList 10)
           echo $LIST
   ENV:
