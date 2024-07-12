@@ -30,9 +30,9 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: REPORT_*
+          pattern: REPORT_*
           path: /tmp
-          merge-mutiple: true
+          merge-multiple: true
       - run: tree /tmp
   
           
