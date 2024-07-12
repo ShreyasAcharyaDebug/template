@@ -1,0 +1,22 @@
+name: Testing
+
+on:
+  schedule: 
+    - cron: "*/5 * * * *"
+  push:
+  workflow_dispatch:
+    inputs:
+      Key:
+        description: 'key'
+        required: true
+        default: false
+        type: boolean
+
+jobs:
+  Testing:
+    runs-on: ["ubuntu-latest"]
+    steps:
+      - run: echo $KEY
+        env: 
+          KEY: ${{ inputs.Key || 'false' }}
+      
