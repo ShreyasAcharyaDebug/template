@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ID: ${{ fromJson(vars.JOBS }}
+        ID: ${{ fromJson(vars.JOBS) }}
     steps:
       - run: echo $ID
         env: 
