@@ -2,6 +2,7 @@ name: Testing
 
 on:
   push:
+  workflow_dispath:
 
 jobs:
   First:
