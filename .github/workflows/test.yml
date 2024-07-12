@@ -5,7 +5,7 @@ on: push
 jobs:
   JOB1:
     env: 
-      MATRIX: ${{ toJson([1, 2, 3]) }}
+      MATRIX: ${{ toJson('[1, 2, 3]') }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
