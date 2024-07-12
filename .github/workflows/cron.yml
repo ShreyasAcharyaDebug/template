@@ -21,7 +21,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: REPORT_${{ matrix.ID }}
-          path: /tmp/**
+          path: /tmp/test**
           retention-days: 1
 
   Second:
