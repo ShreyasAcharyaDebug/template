@@ -15,7 +15,11 @@ jobs:
   ENV:
     needs: SET_ENV
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ID: ${{ fromJson(needs.SET_ENV.outputs.OUTPUT) }}
+        
     steps:
-      - run: echo $LIST
+      - run: echo $ID
         env:
-          LIST: ${{ needs.SET_ENV.outputs.OUTPUT }}
+          ID: ${{ matrix.ID }}
