@@ -15,7 +15,7 @@ jobs:
             echo "[$result]"
           }
           LIST=$(range 10)
-          echo $LIST
+          echo "OUTPUT=$LIST" >> $GITHUB_ENV
   ENV:
     needs: SET_ENV
     runs-on: ubuntu-latest
