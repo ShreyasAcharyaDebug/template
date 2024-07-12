@@ -3,13 +3,19 @@ name: Testing
 on: push
 
 jobs:
-  JOB1:
+  SET_ENV: 
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        ID: ${{ fromJson(vars.JOBS) }}
+    outputs:
+      OUTPUT: ${{ env.LIST }}
     steps:
-      - run: echo $ID
-        env: 
-          ID : ${{ matrix.ID }}
-          NUMBER_OF_JOBS: ${{ echo var.JOBS | jq -r '. | length' }}
+      - run: n=5; echo -n "["; for ((i=0; i<n; i++)); do echo -n "$i"; if ((i<n-1)); then echo -n ", "; fi; done; echo "]"
+      - run: |
+          n=5; result=$(for ((i=0; i<n; i++)); do echo -n "$i"; if ((i<n-1)); then echo -n ", "; fi; done; echo); result="[$result]"; echo "LIST=$result" >> $GITHUB_ENV
+
+  ENV:
+    needs: SET_ENV
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo $LIST
+        env:
+          LIST: ${{ needs.SET_ENV.outputs.OUTPUT }}
