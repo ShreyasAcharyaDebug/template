@@ -4,12 +4,12 @@ on: push
 
 jobs:
   JOB1:
-    env: 
-      MATRIX: ${{ toJson('[1, 2, 3]') }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ID: ${{ fromJson(env.MATRIX) }}
+        ID: ${{ formJson(vars.JOBS }}
     steps:
       - run: echo $ID
-        env: ${{ matrix.ID }}
+        env: 
+          ID : ${{ matrix.ID }}
+          NUMBER_OF_JOBS: ${{ echo var.JOBS | jq -r '. | length' }}
