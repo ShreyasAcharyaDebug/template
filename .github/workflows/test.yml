@@ -13,7 +13,9 @@ jobs:
             result=$(for ((i=0; i<n; i++)); do echo -n "$i"; if ((i<n-1)); then echo -n ", "; fi; done; echo);
             return $result
           }
-          echo "LIST=$(GenerateList 10)" >> $GITHUB_ENV
+          
+          LIST=$(GenerateList 10)
+          echo $LIST
   ENV:
     needs: SET_ENV
     runs-on: ubuntu-latest
