@@ -1,26 +1,15 @@
 name: Testing
 
-on: [workflow_dispatch]
+on: push
 
 jobs:
   JOB1:
+    env: 
+      MATRIX: ${{ toJson([1, 2, 3]) }}
     runs-on: ubuntu-latest
-    outputs:
-      OUTPUT: ${{ env.OUTPUT }}
-    steps:
-      - uses: actions/checkout@v4
-      - run: docker build -t job1 -f Dockerfile_1 .
-      - run: |
-          echo "OUTPUT=$(docker run --rm job1)" >> $GITHUB_ENV
-  JOB2:
-    runs-on: ubuntu-latest
-    needs: JOB1
     strategy:
-      matrix: 
-       KEY: ${{ fromJson(needs.JOB1.outputs.OUTPUT) }}
+      matrix:
+        ID: ${{ fromJson(env.MATRIX) }}
     steps:
-      - run: |
-          VAR=$(echo $KEY | jq -r 'select(.first==1)')
-          echo $VAR
-        env: 
-          KEY: ${{ matrix.KEY }}
+      - run: echo $ID
+        env: ${{ matrix.ID }}
