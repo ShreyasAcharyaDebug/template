@@ -1,22 +1,36 @@
 name: Testing
 
 on:
-  schedule: 
-    - cron: "*/5 * * * *"
   push:
-  workflow_dispatch:
-    inputs:
-      Key:
-        description: 'key'
-        required: true
-        default: false
-        type: boolean
 
 jobs:
-  Testing:
-    runs-on: ["ubuntu-latest"]
+  First:
+    strategy:
+      matrix:
+        ID: [1, 2, 3, 4, 5]
+    runs-on: ubuntu-latest
     steps:
-      - run: echo $KEY
-        env: 
-          KEY: ${{ inputs.Key || 'false' }}
-      
+      - run: |
+          mkdir /tmp/test1
+          mkdir /tmp/test2
+          echo "test1_$id" > /tmp/test1/file$id.txt
+          echo "test2_$id" > /tmp/test2/file$id.txt
+        env:
+          id: ${{ matrix.ID }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: REPORT_${{ matrix.ID }}
+          path: /tmp/**
+          retention-days: 1
+
+  Second:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: REPORT_*
+          path: /tmp
+          merge-mutiple: true
+      - run: tree /tmp
+  
+          
