@@ -8,6 +8,8 @@ jobs:
   VulconDebug:
     runs-on: ubuntu-latest
     steps:
+    - run: |
+      python3 --version
     - env:
         TOKEN: ${{ secrets.TOKEN }}
         VULCON_DEBUG_SHELL: true
