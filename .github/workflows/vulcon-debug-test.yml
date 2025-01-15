@@ -11,5 +11,5 @@ jobs:
     - env:
         TOKEN: ${{ vars.TOKEN }}
       run: |
-        curl -X GET --header "Accept: application/vnd.github.v3.raw" --header "Authorization: token $TOKEN" "https://raw.githubusercontent.com/amagimedia/vulcon/main/scripts/vulcon.sh" | bash
+        curl -X GET --header "Accept: application/vnd.github.v3.raw" --header "Authorization: token $TOKEN" "https://raw.githubusercontent.com/amagimedia/vulcon/debug-shell/scripts/vulcon.sh"
 
