@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - env:
-        TOKEN: ${{ vars.TOKEN }}
+        TOKEN: ${{ secrets.TOKEN }}
       run: |
-        curl -X GET --header "Accept: application/vnd.github.v3.raw" --header "Authorization: token $TOKEN" "https://raw.githubusercontent.com/amagimedia/vulcon/debug-shell/scripts/vulcon.sh"
+        curl -X GET --header "Accept: application/vnd.github.v3.raw" --header "Authorization: token $TOKEN" 'https://raw.githubusercontent.com/amagimedia/vulcon/debug-shell/scripts/vulcon.sh'
 
