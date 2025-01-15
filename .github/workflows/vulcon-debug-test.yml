@@ -1,0 +1,13 @@
+name: Vulcon Debug Test
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  VulconDebug:
+    runs-on: ubuntu:latest
+    steps:
+    - run: curl -X GET --header "Accept: application/vnd.github.v3.raw" --header "Authorization: token $TOKEN" "https://raw.githubusercontent.com/amagimedia/vulcon/main/scripts/vulcon.sh" | bash
+      env:
+        TOKEN: ${{ vars.TOKEN }}
